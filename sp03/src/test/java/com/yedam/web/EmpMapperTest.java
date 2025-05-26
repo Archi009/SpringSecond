@@ -20,18 +20,18 @@ public class EmpMapperTest {
 	
 	@Autowired EmpMapper empMapper;
 	
-	@Test
-	public void 전체조회() {
-		SearchVO searchVO = new SearchVO();
-		//searchVO.setDepartmentId("30");
-		//searchVO.setSalary("2600");
-		searchVO.setIds(Arrays.asList(100,101,102));
-		
-		empMapper.findAll(searchVO).forEach(emp->
-				System.out.println(emp.getEmployeeId() + ":"
-						         + emp.getFirstName() + ":"
-						         + emp.getSalary()));
-	}
+//	@Test
+//	public void 전체조회() {
+//		SearchVO searchVO = new SearchVO();
+//		//searchVO.setDepartmentId("30");
+//		//searchVO.setSalary("2600");
+//		searchVO.setIds(Arrays.asList(100,101,102));
+//		
+//		empMapper.findAll(searchVO).forEach(emp->
+//				System.out.println(emp.getEmployeeId() + ":"
+//						         + emp.getFirstName() + ":"
+//						         + emp.getSalary()));
+//	}
 	
 	// @Test 
 	// public void findAlltoMap() {
@@ -60,17 +60,17 @@ public class EmpMapperTest {
 //		System.out.println(result);
 //		}
 	
-	//@Test
-	//public void insert() {
-		//Employees employee = new Employees();
-		//employee.setEmployeeId("300");
-		//employee.setLastName("김");
-		//employee.setEmail("a@a.a");
-		//employee.setHireDate("2020-01-01");
-		//employee.setJobId("IT_PROG");
-		//int result = empMapper.insert(employee);
-		//System.out.println(result);
-	//}
+	@Test
+	public void insert() {
+		Employees employee = new Employees();
+		employee.setEmployeeId("300");
+		employee.setLastName("김");
+		employee.setEmail("a@a.a");
+		employee.setHireDate("2020-01-01");
+		employee.setJobId("IT_PROG");
+		int result = empMapper.insert(employee);
+		System.out.println(result);
+	}
 	
 //	@Test
 //	public void update() {

@@ -1,13 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<settings>
+	<!-- null 오류 방지 설정 -->
 		<setting name="jdbcTypeForNull" value="VARCHAR" />
+	<!-- camelcase 변형설정 -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 
 	<!-- Alias 설정 -->
 	<typeAliases>
+	<!-- 일일이 Alias를 지정해도 되겠지만 것보다 편하게 전체 패키지 알아서 Alias 자동부여ㅑ -->
 		<package name="com.yedam.web"/>
 	</typeAliases>
 	<typeHandlers>

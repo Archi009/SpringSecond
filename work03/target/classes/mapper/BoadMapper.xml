@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.web.mapper.BoadMapper">
+	<select id="findAll" resultType="BoadVO">
+		select * from tbl_boad
+		<where>
+		<!-- 제목이 있는지 -->
+			<if test="title != null"> and title = #{title}</if>
+		<!-- 작가가 있는지 -->
+			<if test="writer != null"> and writer = #{writer}</if>
+		<!-- 작성일이  있는지 그래서  그게 내가 준 날짜 보다 적은지 -->
+			<if test="regdate != null"> and regdate <![CDATA[>]]> #{regdate}</if>
+		<!-- list가 있는지 그 안의 배열을 foreach 로 돌려서 시작을 ( 끝을 ) 구분을 , 로 해서 in문을 완성해라-->		
+			<!--<if test="list != null"> and bno in for<foreach collection="list" item="bno" open="(" close=")" separator=","></foreach></if>-->
+		</where>	
+	</select>
+	
+	<insert id="insertNew" parameterType="BoadVO">
+	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+	    	SELECT seq_board.nextval FROM DUAL
+		</selectKey>
+		 insert into tbl_boad ( bno, title , content , writer)
+ 		 values( #{bno}, #{title},#{content},#{writer})
+	</insert>
+	<update id="updateNew">
+		update tbl_boad 
+		set title = #{title}
+		where bno = #{bno}
+	</update>
+	<delete id="delBno" parameterType="int">
+		delete from tbl_boad
+		where bno = #{val}
+	</delete>
+	
+	<select id="findData" resultType="BoadVO">
+		select * from tbl_boad
+		<where>
+		<!-- 제목이 있는지 -->
+			<if test="title != null"> and title = #{title}</if>
+		<!-- 작가가 있는지 -->
+			<if test="writer != null"> and writer = #{writer}</if>
+		<!-- 작성일이  있는지 그래서  그게 내가 준 날짜 보다 적은지 -->
+			<if test="regdate != null"> and regdate <![CDATA[>]]> #{regdate}</if>
+		<!-- list가 있는지 그 안의 배열을 foreach 로 돌려서 시작을 ( 끝을 ) 구분을 , 로 해서 in문을 완성해라-->		
+			<if test="list != null"> and bno in <foreach collection="list" item="no" open="(" close=")" separator=",">#{no}</foreach></if>
+		</where>	
+	</select>
+	
+</mapper>

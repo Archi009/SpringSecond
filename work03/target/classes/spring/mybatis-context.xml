@@ -4,13 +4,17 @@
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-
+	<!-- context파일을 두개로 나눠서 좀 더 깔끔 하게 보기 가능 -->
 	<!-- mybatis SqlSessionFactory -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- datasource-context 의 dataSource bean을 받아온 setter 프로 퍼티  -->
 		<property name="dataSource" ref="dataSource" />
+		<!-- sql map config 를 정의 해서 mapper에 적용시킬 환경 설정 ex 카멜 케이스  -->
 		<property name="configLocation" value="classpath:sql-map-config.xml"></property>
+		<!-- mapperLocations 설정 mapper폴더 아래 모든 xml 파일은 mapper로서 기능한다. -->
 		<property name="mapperLocations" value="classpath:mapper/*.xml" />
 	</bean>
+	<!-- com.yedam사이 어떤위치건 .mapper로 생겼으면 mybatisspring scan에 의하여 컨테이너?에 담긴다. -->
 	<mybatis-spring:scan base-package="com.yedam.**.mapper"></mybatis-spring:scan>
 
 </beans>
