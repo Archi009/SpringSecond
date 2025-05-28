@@ -8,7 +8,9 @@
 </head>
 <body>
 
-${param.name }<br> <!-- reques.getParameter("") -->
+
+(flash)msg : ${msg }<br>
+name : ${param.name }<br> <!-- request.getParameter("") -->
 ${param.age }<br>
 <hr>
 ${dept }
