@@ -84,13 +84,13 @@ public class BoardController {
 	// 삭제
 	@PostMapping("/del")
 	@ResponseBody
-	public String del (long bno) {
+	public String del (@RequestBody long bno ) {
 		
 		if(boardService.del(bno) >0) {
 			
-			return "redirect:list";
+			return "{\"res\":\"success\"}";
 		}else {
-			return "false";
+			return "{\"res\":\"false\"}";
 		}
 	}
 	
