@@ -14,4 +14,5 @@ public interface EmpMapper {
 	int insert(Employees employees);
 	int update(Employees employees);
 	int delete(int employeeId);
+	List<Employees>findEmpDept();
 }

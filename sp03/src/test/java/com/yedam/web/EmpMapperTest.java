@@ -13,6 +13,9 @@ import com.yedam.web.mapper.EmpMapper;
 import com.yedam.web.model.Employees;
 import com.yedam.web.model.SearchVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/spring/datasource-context.xml",
 	                    "classpath:/spring/mybatis-context.xml"})
@@ -20,11 +23,17 @@ public class EmpMapperTest {
 	
 	@Autowired EmpMapper empMapper;
 	
+	@Test
+	public void findEmpDept () {
+		List<Employees> list =  empMapper.findEmpDept();
+		list.forEach(emp -> log.info(emp.getFirstName() +":"+ emp.getDepartment().getDepartmentName()));
+	}
+	
 //	@Test
 //	public void 전체조회() {
 //		SearchVO searchVO = new SearchVO();
-//		//searchVO.setDepartmentId("30");
-//		//searchVO.setSalary("2600");
+////		searchVO.setDepartmentId("30");
+////		searchVO.setSalary("2600");
 //		searchVO.setIds(Arrays.asList(100,101,102));
 //		
 //		empMapper.findAll(searchVO).forEach(emp->
@@ -60,17 +69,17 @@ public class EmpMapperTest {
 //		System.out.println(result);
 //		}
 	
-	@Test
-	public void insert() {
-		Employees employee = new Employees();
-		employee.setEmployeeId("300");
-		employee.setLastName("김");
-		employee.setEmail("a@a.a");
-		employee.setHireDate("2020-01-01");
-		employee.setJobId("IT_PROG");
-		int result = empMapper.insert(employee);
-		System.out.println(result);
-	}
+//	@Test
+//	public void insert() {
+//		Employees employee = new Employees();
+//		employee.setEmployeeId("300");
+//		employee.setLastName("김");
+//		employee.setEmail("a@a.a");
+//		employee.setHireDate("2020-01-01");
+//		employee.setJobId("IT_PROG");
+//		int result = empMapper.insert(employee);
+//		System.out.println(result);
+//	}
 	
 //	@Test
 //	public void update() {
