@@ -2,32 +2,27 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<%@include file="/WEB-INF/views/includes/header.jsp" %>
 <body>
 	<div class="row">
 		<div class="col-lg-12">
-			<h1>Board UPDATE</h1>
+			<h1 class="page-header">Board UPDATE</h1>
 		</div>
 	</div>
 	
-	<div>
-		<div>
-			<div>
-				<div>Board UPDATE</div>
-				<div>
+	<div class="row"> 
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Board UPDATE</div>
+				<div class="panel-body">
 
 					<!-- <form action="register" method="POST" >-->
 					<form action='<c:url value="/board/update" />' method="POST" > <!-- classpath?? -->
 					
-						<div><label >bno</label><input type="text" name="bno" id="bno" value="${board.bno }" readonly="readonly"> </div>
-						<div><label >title</label><input type="text" name="title" value="${board.title }"></div>
-						<div><label >content</label><input type="text" name="content" value="${board.content }"></div>
-						<div><label >writer</label><input type="text" name="writer" value="${board.writer }"></div>
+						<div class="form-group"><label >bno</label><input class="form-control" type="text" name="bno" id="bno" value="${board.bno }" readonly="readonly"> </div>
+						<div class="form-group"><label >title</label><input class="form-control" type="text" name="title" value="${board.title }"></div>
+						<div class="form-group"><label >content</label><input class="form-control" type="text" name="content" value="${board.content }"></div>
+						<div class="form-group"><label >writer</label><input class="form-control" type="text" name="writer" value="${board.writer }"></div>
 						<button type="submit">Submit</button><button type="reset">Reset</button>
 						<button id="delBtn">삭제</button>
 					</form>
@@ -36,8 +31,7 @@
 		</div>
 	</div>
 	
-</body>
-</html>
+<%@include file="/WEB-INF/views/includes/footer.jsp" %>
 <script>
 document.querySelector("#delBtn").addEventListener('click', function(e){
 	e.preventDefault()

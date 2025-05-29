@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.board.service.BoardService;
 import com.yedam.board.service.BoardVO;
+import com.yedam.board.service.Criteria;
+import com.yedam.board.service.PageDTO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -34,9 +37,12 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/list")
-	public String getMathodName(Model model) {
+	public String getMathodName(Criteria cri, Model model) {
 		
-		model.addAttribute("list",boardService.getList());
+		model.addAttribute("list",boardService.getList(cri));
+		//paing 처리
+				long total = boardService.getTotalCount(cri);
+				model.addAttribute("pageMaker", new PageDTO(cri, total));
 		return "board/list"; 
 	}
 	
@@ -56,8 +62,10 @@ public class BoardController {
 	 * @return 여부
 	 */
 	@PostMapping("/register")
-	public String insert(BoardVO vo) {
+	public String insert(BoardVO vo , RedirectAttributes rttr) {
+		
 		int res = boardService.insert(vo);
+		rttr.addFlashAttribute("result",vo.getBno());
 		if(res > 0) {
 		return "redirect:list";
 		}else {
@@ -103,4 +111,5 @@ public class BoardController {
 			return "false";
 		}
 	}
+	
 }
