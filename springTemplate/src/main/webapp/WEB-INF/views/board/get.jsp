@@ -59,12 +59,49 @@
 
       </div>
       <!--  end panel-body -->
+		<hr>
+		<div class="mt-5">
+  <!-- 댓글 입력 폼 -->
+  <div class="mb-3">
+    <textarea
+      class="form-control mb-2"
+      rows="3"
+      placeholder="댓글을 입력하세요..."
+     id="txtReply"></textarea>
+    <button class="btn btn-primary" id="btnReplyAdd">댓글 작성</button>
+  </div>
 
+  <hr />
+
+  <!-- 댓글 리스트 -->
+  <div class="reply mb-4">
+    <div class="d-flex justify-content-between">
+      <strong>user123</strong>
+      <small class="text-muted">2025-05-22</small>
+    </div>
+    <p class="mb-1">좋은 글이네요!</p>
+    <div>
+      <button class="btn btn-sm btn-outline-secondary">수정</button>
+      <button class="btn btn-sm btn-outline-danger">삭제</button>
+    </div>
+  </div>
+</div>
     </div>
     <!--  end panel-body -->
   </div>
   <!-- end panel -->
 
 </div>
+<script src="/resources/js/get.js"></script>
+<script>
+  document.querySelector('#btnReplyAdd').addEventListener('click',function(){
+    let reply = document.querySelector('#txtReply').value;
+    let data = {
+      reply : reply,
+      replyer : '홍길동'
+    }
+    reg(data);
+  })
+</script>
 <!-- /.row -->
 

@@ -1,4 +1,4 @@
-package com.yedam.board;
+package com.yedam.board.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.yedam.board.mapper.BoardMapper;
+import com.yedam.board.service.BoardService;
+import com.yedam.board.service.BoardVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -14,18 +15,21 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("file:src/main/resources/spring/*-context.xml")
-public class BoardMapperTest {
+public class BoardServiceTest {
+	
 	@Setter(onMethod_ = @Autowired)
-	private BoardMapper boardMapper;
+	private BoardService boardService;
 	
-//	@Test
-	public void getTime() {
-		boardMapper.getTime();
+	//@Test
+	public void update() {
+	BoardVO vo = boardService.get(1);
+	vo.setTitle("제목바꿈요");
+	  boardService.update(vo);
 	}
-	
 	@Test
-	public void testGetlist() {
-		boardMapper.getList().forEach(board -> log.info( board));
-		
+	public void del() {
+		int no = boardService.del(2);
+		System.out.println(no);
 	}
+	
 }
