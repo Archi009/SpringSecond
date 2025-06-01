@@ -102,6 +102,8 @@
     }
     reg(data);
   })
+  
+  
 </script>
 <!-- /.row -->
 
