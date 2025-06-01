@@ -39,7 +39,7 @@
 
 	update tbl_reply set 
 	       reply = #{reply},
-	       updatedate = sysdate 
+	       update_date = sysdate 
 	 where rno = #{rno}
 
   </update>

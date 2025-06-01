@@ -47,4 +47,17 @@ public class ReplyMapperTest {
 			System.out.println(item);
 		});
 	}
+	
+	@Test
+	public void delTest() {
+		mapper.delete(5L);
+		
+	}
+	@Test
+	public void upTest() {
+		ReplyVO vo = new ReplyVO();
+		vo.setReply("어데");
+		vo.setRno(2);
+		mapper.update(vo);
+	}
 }

@@ -78,4 +78,32 @@ public class ReplyControllerTests {
 		log.info(str);
 //		         .andDo(print());
 	}
+	
+	
+	
+	@Test
+	public void testup() throws Exception {
+		ReplyVO reply = new ReplyVO();
+		reply.setRno(2);
+		reply.setBno(20L);
+		reply.setReply("바뀌니? 이게 뭐니");
+		reply.setReplyer("댓글작성");
+		String jsonStr = new ObjectMapper().writeValueAsString(reply);
+		mockMvc.perform(MockMvcRequestBuilders.put("/board/20/replies")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(jsonStr))
+				.andDo(print());
+				
+		
+	}
+	
+	@Test
+	public void testdel() throws Exception {
+//		Long rno = 4L;
+		mockMvc.perform(MockMvcRequestBuilders.delete("/board/20/replies/7"));
+	}
+		
+	
+	
+	
 }
