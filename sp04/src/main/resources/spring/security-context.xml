@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd
+http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+
+	<!-- css는 적용 안 함 -->
+	<security:http pattern="/css/**" security="none" />
+	<security:http>
+	<!-- perlmitAll() => 권한상관없이 접속가능 -->
+		<security:intercept-url pattern="/all" access="permitAll()" />
+		<security:intercept-url pattern="/login" access="permitAll()" />
+		<security:intercept-url pattern="/member/**"	access="hasAuthority('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/admin/**"	access="hasAuthority('ROLE_ADMIN')" />
+		<!-- 로그인을 했는가? -->
+		<security:intercept-url pattern="/**" access="isAuthenticated()" />
+		<!-- 내가 설정한 로그인 페이지로 이동 (login-page를 지우면 기본 시큐리티가 제공하는 곳으로 이동한다.) -->
+		<security:form-login login-page="/login"/>
+		<!-- <security:access-denied-handler error-page="/accessError"/> -->
+		<security:access-denied-handler ref="denieHandler"/>
+		
+			<!-- 권한별 접근 확인 -->
+	<!-- 	<security:intercept-url pattern="/admin/**"	access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**" access="isAuthenticated()" />
+		<security:form-login default-target-url="/top.jsp" />
+		<security:logout logout-url="/logout" logout-success-url="/top.jsp" />
+		<security:csrf disabled="true" /> -->
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+			<!-- 비밀번호 앞에 {noop} 추가하면 암호화 하지 않았다는 뜻 -->
+				<security:user name="user" password="{noop}1234"	authorities="ROLE_MEMBER" />
+				<security:user name="admin" password="{noop}1234"	authorities="ROLE_ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
