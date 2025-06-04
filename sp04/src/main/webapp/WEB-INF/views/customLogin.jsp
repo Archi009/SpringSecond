@@ -15,13 +15,13 @@
 	<h2>
 		<c:out value="${logout}" />
 	</h2>
-
-	<form method='post' action="/login">
+<!-- post와 login은 내가 설정한 controller가 인식하는게 아니라  security가 인식한다. -->
+	<form method='post' action="login">
 		<div>
 			<input type='text' name='username' value='admin'>
 		</div>
 		<div>
-			<input type='password' name='password' value='admin'>
+			<input type='password' name='password' value='1234'>
 		</div>
 		<div>
 			<input type='checkbox' name='remember-me'> Remember Me
@@ -29,8 +29,8 @@
 		<div>
 			<input type='submit'>
 		</div>
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
+		<!-- session에 따라 csrf token이 변화한다. -->
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 	</form>
 </body>
 </html>

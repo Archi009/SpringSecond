@@ -16,8 +16,16 @@
 		<Logger name="jdbc.sqltiming" level="info" additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
+		<Logger name="jdbc.connection" level="off" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
 
 		<Logger name="jdbc.resultsettable" level="info"
+			additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<!-- 보고싶은 로그의 레벨을 설정 -->
+		<Logger name="org.springframework.security" level="debug"
 			additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>

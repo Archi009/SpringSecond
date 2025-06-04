@@ -12,38 +12,56 @@ http://www.springframework.org/schema/aop https://www.springframework.org/schema
 http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd
 http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
-
-
-
+	<!--  context에서 활용하려 bean 등록-->
+	<bean id="loginSuccessHandler" class="com.company.common.security.CustomLoginSuccessHandler" />
+	<bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+	
+	<!-- <bean id="customUserDetailsService" class="com.company.user.service.Impl.CustomUserDetailsService"></bean> -->
 	<!-- css는 적용 안 함 -->
 	<security:http pattern="/css/**" security="none" />
 	<security:http>
 	<!-- perlmitAll() => 권한상관없이 접속가능 -->
+		<security:intercept-url pattern="/" access="permitAll()" />
 		<security:intercept-url pattern="/all" access="permitAll()" />
-		<security:intercept-url pattern="/login" access="permitAll()" />
+		<security:intercept-url pattern="/customLogin" access="permitAll()" />
 		<security:intercept-url pattern="/member/**"	access="hasAuthority('ROLE_MEMBER')" />
 		<security:intercept-url pattern="/admin/**"	access="hasAuthority('ROLE_ADMIN')" />
 		<!-- 로그인을 했는가? -->
 		<security:intercept-url pattern="/**" access="isAuthenticated()" />
-		<!-- 내가 설정한 로그인 페이지로 이동 (login-page를 지우면 기본 시큐리티가 제공하는 곳으로 이동한다.) -->
-		<security:form-login login-page="/login"/>
+		<!-- 내가 설정한 로그인 페이지로 이동 (login-page를 지우면 기본 시큐리티가 제공하는 곳으로 이동한다.)
+		authentication-success-handler-ref 허락된 로그인 성공시 처리할 방식을 정의한 class로의 연결 (bean방식) -->
+		<security:form-login login-page="/customLogin" 
+							 authentication-success-handler-ref="loginSuccessHandler"
+							 default-target-url="/all"/>
+	<!-- 	login-processing-url=""
+		username-parameter=""
+		password-parameter="" ;;;; form-login의 설정들-->
+							 
 		<!-- <security:access-denied-handler error-page="/accessError"/> -->
+		<!-- component 방식으로 ref값을 받아오는 denieHandler -->
 		<security:access-denied-handler ref="denieHandler"/>
+		<security:logout logout-url="/logout" logout-success-url="/customLogin" />
 		
 			<!-- 권한별 접근 확인 -->
 	<!-- 	<security:intercept-url pattern="/admin/**"	access="hasAuthority('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**" access="isAuthenticated()" />
 		<security:form-login default-target-url="/top.jsp" />
-		<security:logout logout-url="/logout" logout-success-url="/top.jsp" />
+		<security:logout logout-url="/logout" logout-success-url="customLogin" />
 		<security:csrf disabled="true" /> -->
 	</security:http>
+	
+	
+	
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-			<!-- 비밀번호 앞에 {noop} 추가하면 암호화 하지 않았다는 뜻 -->
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<security:password-encoder hash="bcrypt"/>
+		
+		
+			<!-- <security:user-service>
+			비밀번호 앞에 {noop} 추가하면 암호화 하지 않았다는 뜻
 				<security:user name="user" password="{noop}1234"	authorities="ROLE_MEMBER" />
 				<security:user name="admin" password="{noop}1234"	authorities="ROLE_ADMIN" />
-			</security:user-service>
+			</security:user-service> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>

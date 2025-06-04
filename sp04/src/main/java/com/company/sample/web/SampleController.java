@@ -25,7 +25,7 @@ public class SampleController{
 	}
 	
 	
-	@GetMapping({"/all","/member","/admin","/accessError","/login"})
+	@GetMapping({"/all","/member","/admin","/accessError","/customLogin"})
 	public void all(HttpServletRequest req) {
 		System.out.println(req.getRequestURI());
 	}
