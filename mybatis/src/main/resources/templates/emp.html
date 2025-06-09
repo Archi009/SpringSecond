@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ 			layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.slgrater {
+	color: red;
+}
+</style>
+</head>
+<body>
+ <section layout:fragment="content">
+	총사원수 :
+	[[${#arrays.length(empList)}]]
+	<br>
+
+	<table>
+		<tr>
+			<th>employee_id</th>
+			<th>first_name</th>
+			<th>first_name</th>
+			<th>last_name</th>
+			<th>last_name</th>
+			<th>salary</th>	
+			<th>관리</th>
+		</tr>
+		<tr th:each="emp,st : ${empList}" th:class="${st.odd} ? 'active' : '' ">
+			<!-- <td>출력</td> -->
+			<!-- /* <td>출력 : 주석을 컴파일 해서 출력하느냐의 차이</td> */ -->
+			<td>[[${st.index}]]</td>
+			<td>[[${emp.employeeId}]]</td>
+			<td th:text="${emp.firstName}"></td>
+			<td th:text="${#strings.toUpperCase(emp.firstName)}"></td>
+			<td th:text="${emp.lastName}"></td>
+			<td th:text="${#strings.contains(emp.lastName,'a')}"></td>
+			<td th:text="${#dates.format(emp.hireDate,'yyyy-MM-dd')}"></td>
+			<td th:text="${#numbers.formatCurrency(emp.salary)}"
+				th:class="${emp.salary}>10000 ? 'slgrater' : '' "></td>
+			<td>
+				<button th:if="${emp.salary} > 10000 ">급여 + 보너스</button>
+				<button th:unless="${emp.salary} > 10000 ">급여</button>
+
+			</td>
+			<td>
+				<a th:href="@{/emp/info(${emp.employeeId},firstName=${emp.firstName})}">상세보기</a> <!-- 링크 설정시 @를 사용하면 편하다 : query string -->
+			</td>
+			<td>
+				<a th:href="@{/emp/{empId}(empId =${emp.employeeId})}">상세보기</a> <!-- pathvariable -->
+			</td>
+		</tr>
+	</table>
+	 <div th:insert="~{footer::company}"></div> <!-- :: 콜론두개가  fragement의 value를 가르킨다 -->
+	 <div th:insert="~{footer}"></div>
+	 <div th:replace="~{footer::copy}"></div> <!-- insert는 div자체를 삽입하는것, replace는 div전체를 대체 한다 -->
+	 
+</section>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>phone</th>
+				<th>date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cus : ${cust}">
+				<td>[[${cus.id}]]</td>
+				<td th:text="${cus.name}"></td>
+				<td th:text="${cus.phone}"></td>
+				<!-- <td th:text="${cus.rdt}"></td> -->
+			 
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
